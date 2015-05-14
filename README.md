@@ -3,8 +3,10 @@ Vim Namespace
 
 Plugin which guesses the namespace of the current file from `composer.json`.
 
-Note that the algorithm for determining the namespace could be improved,
-although it should currently work in most cases.
+Note that the algorithm for determining the namespace is not 100% accurate
+(although it could be) but it should work in the majority of cases.
+
+It should work with both `psr-0` and `psr-4` projects.
 
 Installation
 ------------
@@ -15,11 +17,19 @@ With Vundle:
 Plugin "dantleech/vim-phpnamespace"
 ````
 
-Mapping
--------
+Usage
+-----
+
+Map it:
 
 ````vim
-nnoremap <silent><leader>nn :call PhpNamespaceInsert<CR>
+nnoremap <silent><leader>nn :call PhpNamespaceInsert()<CR>
+````
+
+Call it:
+
+````vim
+let s:foo = PhpNamespaceGet()
 ````
 
 Integration with Ultisnips
