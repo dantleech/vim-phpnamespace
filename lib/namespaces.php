@@ -1,4 +1,3 @@
-
 <?php
 
 // Generates a PHPUnit TestCase for the class at the given path
@@ -19,7 +18,7 @@ $cwd = getcwd();
 if (!isset($argv[1])) {
     blowup('You must provide a filename');
 }
-$file = $argv[1];
+$file = dirname($argv[1]);
 $composerFile = $cwd . '/composer.json';
 $autoloadFile = $cwd . '/vendor/autoload.php';
 
@@ -53,7 +52,7 @@ function get_autoload_meta($file, $composer)
         }
         foreach ($composer[$autoloadType] as $autoloadStd => $pathPrefix) {
             foreach ($pathPrefix as $prefix => $path) {
-                if (0 === strpos($file, $path) && strlen($path) > $autoloadLen) {
+                if (0 === strpos($file, rtrim($path, '/')) && strlen($path) > $autoloadLen) {
                     $autoloadMeta = array(
                         'type' => $autoloadStd,
                         'path' => $path,
@@ -76,6 +75,7 @@ function get_autoload_meta($file, $composer)
 function get_psr4_namespace($file, $autoload)
 {
     $subPath = substr($file, strlen($autoload['path']));
+    $subPath = $autoload['prefix'] . $subPath;
     $namespace = str_replace('/', '\\', $subPath);
     $namespace = str_replace('.php', '', $namespace);
     return $namespace;
@@ -84,9 +84,9 @@ function get_psr4_namespace($file, $autoload)
 function get_psr0_namespace($file, $autoload)
 {
     $subPath = substr($file, strlen($autoload['path']));
-    $subPath = $autoload['prefix'] . $subPath;
     $namespace = str_replace('/', '\\', $subPath);
     $namespace = str_replace('.php', '', $namespace);
+
     return $namespace;
 }
 
@@ -103,4 +103,5 @@ switch ($autoload['type']) {
         blowup(sprintf('Unknown autoload type "%s"', $autoload['type']));
 }
 
-echo $namespace;
+echo rtrim($namespace, '\\');
+exit(0);

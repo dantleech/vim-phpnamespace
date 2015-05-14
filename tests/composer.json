@@ -1,7 +1,7 @@
 {
     "autoload": {
         "psr-0": {
-            "Psr0\\Sub": "src/Psr0/Sub"
+            "Psr0\\": "src/"
         },
         "psr-4": {
             "Psr4\\": "src/"
@@ -10,6 +10,9 @@
     "autoload-dev": {
         "psr-0": {
             "Psr0\\Tests\\": "src/"
+        },
+        "psr-4": {
+            "Psr4\\Tests\\": "tests/"
         }
     }
 }

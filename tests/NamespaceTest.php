@@ -10,20 +10,24 @@ class NamespaceTest extends \PHPUnit_Framework_TestCase
                 //'Psr0\\Tests\\Foobar',
             //),
             array(
+                'tests/Foobar.php',
+                'Psr4\\Tests',
+            ),
+            array(
                 'src/Psr0/Sub/Name/Foobar.php',
-                'Psr0\\Sub\\Name\\Foobar'
+                'Psr0\\Sub\\Name'
             ),
             array(
                 'src/Psr0/Foobar.php',
-                'Psr0\\Foobar'
+                'Psr0'
             ),
             array(
                 'src/Psr4/Foobar.php',
-                'Psr4\\Foobar'
+                'Psr4'
             ),
             array(
                 'src/Psr4/Sub/Name/Foobar.php',
-                'Psr4\\Sub\\Name\\Foobar'
+                'Psr4\\Sub\\Name'
             ),
         );
     }

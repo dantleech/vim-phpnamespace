@@ -4,13 +4,18 @@
 
 let s:genpath = expand('<sfile>:p:h') . '/../lib/namespaces.php'
 
-function! PhpNamespaceGenerate()
-    let currentPath = expand('%:p')
+function! PhpNamespaceGet()
+    let currentPath = expand('%')
     let namespace = system('php ' . s:genpath . ' ' . currentPath)
     
     if (v:shell_error == 0)
-        call append(line('.'), namespace)
+        return namespace
     else 
         echoerr namespace
     endif
+endfunction
+
+
+function! PhpNamespaceInsert()
+    exec "normal! i" . PhpNamespaceGet()
 endfunction
