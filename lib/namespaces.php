@@ -20,11 +20,24 @@ if (!isset($argv[1])) {
 }
 $file = dirname($argv[1]);
 $composerFile = $cwd . '/composer.json';
-$autoloadFile = $cwd . '/vendor/autoload.php';
 
 if (!file_exists($composerFile)) {
     blowup(sprintf('Could not find composer file in current directory (%s)', $cwd));
 }
+
+$composer = json_decode(file_get_contents($composerFile), true);
+
+if (!$composer) {
+    blowup('Could not decode composer.json');
+}
+
+$vendorDir = $cwd . '/vendor';
+
+if (isset($composer['config']['vendor-dir'])) {
+    $vendorDir = $composer['config']['vendor-dir'];
+}
+
+$autoloadFile = $vendorDir . '/autoload.php';
 
 if (!file_exists($autoloadFile)) {
     blowup('Could not find autoload.php in vendor directory. Have you installed the dependencies for the project?');
@@ -35,12 +48,6 @@ if (!file_exists($file)) {
 }
 
 require_once($autoloadFile);
-
-$composer = json_decode(file_get_contents($composerFile), true);
-
-if (!$composer) {
-    blowup('Could not decode composer.json');
-}
 
 function get_autoload_meta($file, $composer)
 {
