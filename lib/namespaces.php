@@ -63,7 +63,7 @@ function get_autoload_meta($file, $composer)
                     $autoloadMeta = array(
                         'type' => $autoloadStd,
                         'path' => $path,
-                        'prefix' => $prefix
+                        'prefix' => rtrim($prefix, '\\')
                     );
 
                     $autoloadLen = strlen($path);
