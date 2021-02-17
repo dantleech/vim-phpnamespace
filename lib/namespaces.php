@@ -62,7 +62,7 @@ function get_autoload_meta($file, $composer)
                 if (0 === strpos($file, rtrim($path, '/')) && strlen($path) > $autoloadLen) {
                     $autoloadMeta = array(
                         'type' => $autoloadStd,
-                        'path' => $path,
+                        'path' => rtrim($path, '/'),
                         'prefix' => rtrim($prefix, '\\')
                     );
 
